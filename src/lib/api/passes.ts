@@ -25,5 +25,10 @@ export const passes = {
   update: async (id: string, data: Partial<Pass>): Promise<ApiResponse<Pass>> => ({
     data: { id, ...data } as Pass,
     error: null
+  }),
+
+  remove: async (id: string): Promise<ApiResponse<{ success: boolean }>> => ({
+    data: { success: true },
+    error: null
   })
 };
