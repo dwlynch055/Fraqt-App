@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142.4 71.8% 29.2%;
+    --radius: 0.5rem;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+    font-size: 0.875rem;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-tap-highlight-color: transparent;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-size: revert;
+  }
+  
+  /* Mobile button optimizations */
+  button, [role="button"] {
+    @apply touch-manipulation select-none;
+    min-height: 2.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Ensure touch targets are large enough */
+  @media (max-width: 640px) {
+    button, [role="button"] {
+      min-height: 2.75rem;
+      min-width: 2.75rem;
+    }
+    
+    /* Icon-only buttons */
+    button:has(> svg:only-child),
+    [role="button"]:has(> svg:only-child) {
+      @apply p-3;
+    }
+  }
+}
+
+/* Primary button styles */
+.bg-blue-500 {
+  background-color: rgb(65, 59, 246) !important;
+}
+
+.hover\:bg-blue-600:hover {
+  background-color: rgb(58, 53, 221) !important;
+}
+
+.active\:bg-blue-700:active {
+  background-color: rgb(52, 47, 198) !important;
+}
+
+.factorial-input {
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
