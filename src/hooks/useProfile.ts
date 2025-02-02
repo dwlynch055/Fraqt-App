@@ -46,7 +46,7 @@ export function useProfile(user: User | null) {
     
     try {
       // First try to get existing profile
-      let { data, error } = await supabase
+      const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', user.id)
