@@ -31,6 +31,7 @@
   * {
     @apply border-border;
     font-size: 0.875rem;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
   body {
     @apply bg-background text-foreground;
