@@ -11,13 +11,13 @@ interface AuthStore {
 
 const store: AuthStore = {
   user: null,
-  users: new Map()
+  users: new Map(),
 };
 
 export const simpleAuth = {
   signIn: async (email: string, password: string): Promise<User> => {
     const user = store.users.get(email);
-    
+
     if (!user || user.password !== password) {
       throw new Error('Invalid email or password');
     }
@@ -40,5 +40,5 @@ export const simpleAuth = {
     store.user = null;
   },
 
-  getCurrentUser: () => store.user
+  getCurrentUser: () => store.user,
 };

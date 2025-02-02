@@ -26,19 +26,19 @@ export function useApi() {
     members: {
       list: () => execute(() => api.members.list()),
       get: (id: string) => execute(() => api.members.get(id)),
-      create: (data: Omit<Member, "id">) => execute(() => api.members.create(data)),
+      create: (data: Omit<Member, 'id'>) => execute(() => api.members.create(data)),
       update: (id: string, data: Partial<Member>) => execute(() => api.members.update(id, data)),
-      delete: (id: string) => execute(() => api.members.delete(id))
+      delete: (id: string) => execute(() => api.members.delete(id)),
     },
     passes: {
       list: () => execute(() => api.passes.list()),
       get: (id: string) => execute(() => api.passes.get(id)),
-      create: (data: Omit<Pass, "id">) => execute(() => api.passes.create(data)),
+      create: (data: Omit<Pass, 'id'>) => execute(() => api.passes.create(data)),
       update: (id: string, data: Partial<Pass>) => execute(() => api.passes.update(id, data)),
-      remove: (id: string) => execute(() => api.passes.remove(id))
+      remove: (id: string) => execute(() => api.passes.remove(id)),
     },
     analytics: {
-      get: () => execute(() => api.analytics.get())
-    }
+      get: () => execute(() => api.analytics.get()),
+    },
   };
 }

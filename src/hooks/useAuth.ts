@@ -16,7 +16,9 @@ export function useAuth() {
     });
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
       setLoading(false);
     });
@@ -25,7 +27,7 @@ export function useAuth() {
       subscription.unsubscribe();
     };
   }, []);
-  
+
   const signOut = useCallback(async () => {
     try {
       await supabase.auth.signOut();
@@ -39,20 +41,25 @@ export function useAuth() {
   const signIn = useCallback(async (email: string, password: string) => {
     try {
       if (!navigator.onLine) {
-        throw new Error('No internet connection available. Please check your network connection and try again.');
+        throw new Error(
+          'No internet connection available. Please check your network connection and try again.'
+        );
       }
 
-      const { data: { user }, error } = await retryWithBackoff(() => 
+      const {
+        data: { user },
+        error,
+      } = await retryWithBackoff(() =>
         supabase.auth.signInWithPassword({
           email,
-          password
+          password,
         })
       );
 
       if (error) {
         throw new Error(getAuthErrorMessage(error));
       }
-      
+
       setUser(user);
       return user;
     } catch (error) {
@@ -66,18 +73,23 @@ export function useAuth() {
   const signUp = useCallback(async (email: string, password: string) => {
     try {
       if (!navigator.onLine) {
-        throw new Error('No internet connection available. Please check your network connection and try again.');
+        throw new Error(
+          'No internet connection available. Please check your network connection and try again.'
+        );
       }
 
-      const { data: { user }, error } = await supabase.auth.signUp({
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.signUp({
         email,
-        password
+        password,
       });
-      
+
       if (error) {
         throw new Error(getAuthErrorMessage(error));
       }
-      
+
       return user;
     } catch (error) {
       if (error instanceof Error) {
@@ -92,6 +104,6 @@ export function useAuth() {
     loading,
     signIn,
     signUp,
-    signOut
+    signOut,
   };
 }

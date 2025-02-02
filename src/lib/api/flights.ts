@@ -26,7 +26,7 @@ export async function issueBoardingPass(flightId: string, userId: string, seatNu
     flight_id: flightId,
     user_id: userId,
     seat_number: seatNumber,
-    status: 'active'
+    status: 'active',
   };
 }
 

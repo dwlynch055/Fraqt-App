@@ -19,7 +19,7 @@ describe('Members API', () => {
       name: 'Test User',
       email: 'test@example.com',
       merchant_id: '1',
-      status: 'active'
+      status: 'active',
     });
     expect(error).toBeNull();
     expect(data).toHaveProperty('id');

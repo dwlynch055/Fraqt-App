@@ -9,14 +9,14 @@ export const mockMerchant: Merchant = {
     notifications: {
       passActivations: true,
       customerEngagement: true,
-      systemUpdates: true
+      systemUpdates: true,
     },
     security: {
       twoFactor: true,
       apiKeyRotation: false,
-      sessionManagement: true
-    }
+      sessionManagement: true,
+    },
   },
   created_at: new Date().toISOString(),
-  updated_at: new Date().toISOString()
+  updated_at: new Date().toISOString(),
 };

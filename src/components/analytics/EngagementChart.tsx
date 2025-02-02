@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 const gradientStops = [
   { offset: '0%', color: 'rgb(59, 130, 246)', opacity: 0.2 },
   { offset: '50%', color: 'rgb(59, 130, 246)', opacity: 0.1 },
-  { offset: '100%', color: 'rgb(59, 130, 246)', opacity: 0 }
+  { offset: '100%', color: 'rgb(59, 130, 246)', opacity: 0 },
 ];
 
 const mockData = [
@@ -20,9 +20,9 @@ export function EngagementChart() {
   const [selectedPoint, setSelectedPoint] = useState<number | null>(null);
   const [isAnimating, setIsAnimating] = useState(true);
   const svgRef = useRef<SVGSVGElement>(null);
-  const maxScans = Math.max(...mockData.map(d => d.scans));
-  const minScans = Math.min(...mockData.map(d => d.scans));
-  
+  const maxScans = Math.max(...mockData.map((d) => d.scans));
+  const minScans = Math.min(...mockData.map((d) => d.scans));
+
   useEffect(() => {
     setIsAnimating(true);
     const timer = setTimeout(() => setIsAnimating(false), 800);
@@ -56,18 +56,18 @@ export function EngagementChart() {
   }, '');
 
   return (
-    <div className="rounded-lg p-4 sm:p-6 overflow-hidden bg-black border border-gray-800">
-      <div className="flex items-center justify-between mb-8">
+    <div className="overflow-hidden rounded-lg border border-gray-800 bg-black p-4 sm:p-6">
+      <div className="mb-8 flex items-center justify-between">
         <div>
           <h2 className="text-base font-semibold text-white">Weekly Engagement</h2>
-          <p className="text-[13px] text-gray-400 mt-1">Pass usage analytics</p>
+          <p className="mt-1 text-[13px] text-gray-400">Pass usage analytics</p>
         </div>
       </div>
 
-      <div className="relative w-full h-[275px] overflow-hidden">
+      <div className="relative h-[275px] w-full overflow-hidden">
         <svg
           ref={svgRef}
-          className="w-full h-full overflow-visible"
+          className="h-full w-full overflow-visible"
           style={{
             filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.1))',
           }}
@@ -92,7 +92,7 @@ export function EngagementChart() {
               key={i}
               x="60"
               y={getY(minScans + ((maxScans - minScans) * i) / 4)}
-              className="text-[11px] fill-gray-400"
+              className="fill-gray-400 text-[11px]"
               dominantBaseline="middle"
               textAnchor="end"
             >
@@ -109,25 +109,18 @@ export function EngagementChart() {
             </linearGradient>
             <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
               {gradientStops.map(({ offset, color, opacity }) => (
-                <stop
-                  key={offset}
-                  offset={offset}
-                  stopColor={color}
-                  stopOpacity={opacity}
-                />
+                <stop key={offset} offset={offset} stopColor={color} stopOpacity={opacity} />
               ))}
             </linearGradient>
           </defs>
-          
+
           {/* Area fill */}
           <path
             d={`${pathD} L ${points[points.length - 1].x},${getY(minScans)} L ${points[0].x},${getY(minScans)} Z`}
             fill="url(#areaGradient)"
-            className={`transition-all duration-1000 ${
-              isAnimating ? 'opacity-0' : 'opacity-100'
-            }`}
+            className={`transition-all duration-1000 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}
           />
-          
+
           <path
             d={pathD}
             fill="none"
@@ -135,9 +128,7 @@ export function EngagementChart() {
             strokeWidth="2.5"
             strokeLinecap="round"
             filter="drop-shadow(0 0 8px rgba(59, 130, 246, 0.3))"
-            className={`transition-all duration-1000 ${
-              isAnimating ? 'opacity-0' : 'opacity-100'
-            }`}
+            className={`transition-all duration-1000 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}
             style={{
               strokeDasharray: isAnimating ? '0 2000' : '2000 2000',
             }}
@@ -147,7 +138,7 @@ export function EngagementChart() {
           {points.map((point, i) => (
             <g
               key={i}
-              className="transition-transform cursor-pointer"
+              className="cursor-pointer transition-transform"
               onMouseEnter={() => setSelectedPoint(i)}
               onMouseLeave={() => setSelectedPoint(null)}
             >
@@ -160,21 +151,11 @@ export function EngagementChart() {
                 }`}
               />
               {selectedPoint === i && (
-                <circle
-                  cx={point.x}
-                  cy={point.y}
-                  r="12"
-                  className="fill-blue-500 opacity-20"
-                />
+                <circle cx={point.x} cy={point.y} r="12" className="fill-blue-500 opacity-20" />
               )}
-              
+
               {/* X-axis labels */}
-              <text
-                x={point.x}
-                y="260"
-                className="text-[11px] fill-gray-400"
-                textAnchor="middle"
-              >
+              <text x={point.x} y="260" className="fill-gray-400 text-[11px]" textAnchor="middle">
                 {point.day}
               </text>
 
@@ -194,7 +175,7 @@ export function EngagementChart() {
                     x={point.x}
                     y={point.y - 20}
                     textAnchor="middle"
-                    className="text-[11px] font-medium fill-white"
+                    className="fill-white text-[11px] font-medium"
                   >
                     {point.scans.toLocaleString()}
                   </text>

@@ -53,7 +53,7 @@ export function useTeam(merchantId: string | undefined) {
 
         if (invitationsError) throw invitationsError;
         setTeamData(
-          Array.isArray(membersData) ? membersData as TeamMember[] : [],
+          Array.isArray(membersData) ? (membersData as TeamMember[]) : [],
           Array.isArray(invitationsData) ? invitationsData : []
         );
       } catch (err) {

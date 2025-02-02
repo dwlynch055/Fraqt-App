@@ -31,10 +31,10 @@ export function APIKeysSection() {
 
   const handleCreateKey = async () => {
     if (!user?.id || !newKeyName.trim()) return;
-    
+
     setIsCreating(true);
     setActionError(null);
-    
+
     try {
       await createApiKey(user.id, newKeyName.trim());
       await loadApiKeys();
@@ -65,26 +65,29 @@ export function APIKeysSection() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-semibold text-white">API keys</h2>
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="mt-1 text-sm text-gray-400">
             View and manage API keys for your organization
           </p>
         </div>
-        <button 
+        <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center justify-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 active:bg-blue-700 transition-colors sm:py-2 min-w-[160px] sm:min-w-0"
+          className="flex min-w-[160px] items-center justify-center rounded-lg bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600 active:bg-blue-700 sm:min-w-0 sm:py-2"
         >
-          <Icons.Plus className="w-4 h-4 mr-2" />
+          <Icons.Plus className="mr-2 h-4 w-4" />
           <span className="hidden sm:inline">Create new secret key</span>
           <span className="sm:hidden">New Key</span>
         </button>
       </div>
 
-      <div className="text-sm text-gray-400 space-y-2">
+      <div className="space-y-2 text-sm text-gray-400">
         <p>
-          As an owner of this organization, you can view and manage all API keys in this organization.
+          As an owner of this organization, you can view and manage all API keys in this
+          organization.
         </p>
         <p>
-          Do not share your API key with others or expose it in the browser or other client-side code. To protect your account's security, Fraqt AI may automatically disable any API key that has leaked publicly.
+          Do not share your API key with others or expose it in the browser or other client-side
+          code. To protect your account's security, Fraqt AI may automatically disable any API key
+          that has leaked publicly.
         </p>
       </div>
 
@@ -92,19 +95,19 @@ export function APIKeysSection() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="text-left">
-              <tr className="text-left border-b border-gray-800">
+              <tr className="border-b border-gray-800 text-left">
                 <th className="pb-3 text-sm font-medium text-gray-400">Name</th>
                 <th className="pb-3 text-sm font-medium text-gray-400">Secret key</th>
                 <th className="pb-3 text-sm font-medium text-gray-400">Created</th>
                 <th className="pb-3 text-sm font-medium text-gray-400">Last used</th>
-                <th className="pb-3 text-sm font-medium text-gray-400 text-right">Actions</th>
+                <th className="pb-3 text-right text-sm font-medium text-gray-400">Actions</th>
               </tr>
             </thead>
             <tbody className="text-sm">
               {loading ? (
                 <tr>
                   <td colSpan={5} className="py-8 text-center text-gray-400">
-                    <Icons.Loader2 className="w-6 h-6 animate-spin mx-auto mb-2" />
+                    <Icons.Loader2 className="mx-auto mb-2 h-6 w-6 animate-spin" />
                     Loading API keys...
                   </td>
                 </tr>
@@ -116,84 +119,85 @@ export function APIKeysSection() {
                 </tr>
               ) : (
                 apiKeys.map((key) => (
-                <tr key={key.id} className="border-b border-gray-800">
-                  <td className="py-4 text-white">{key.name}</td>
-                  <td className="py-4 font-mono text-gray-400">{key.key_prefix}...</td>
-                  <td className="py-4 text-gray-400">{formatDistanceToNow(new Date(key.created_at), { addSuffix: true })}</td>
-                  <td className="py-4 text-gray-400">
-                    {key.last_used_at 
-                      ? formatDistanceToNow(new Date(key.last_used_at), { addSuffix: true })
-                      : 'Never'}
-                  </td>
-                  <td className="py-4 text-right">
-                    <div className="flex items-center justify-end space-x-2">
-                      <button className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800">
-                        <Icons.Copy className="w-4 h-4" />
-                      </button>
-                      <button 
-                        onClick={() => handleDeleteKey(key.id)}
-                        className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800"
-                      >
-                        <Icons.Trash className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              )))}
+                  <tr key={key.id} className="border-b border-gray-800">
+                    <td className="py-4 text-white">{key.name}</td>
+                    <td className="py-4 font-mono text-gray-400">{key.key_prefix}...</td>
+                    <td className="py-4 text-gray-400">
+                      {formatDistanceToNow(new Date(key.created_at), { addSuffix: true })}
+                    </td>
+                    <td className="py-4 text-gray-400">
+                      {key.last_used_at
+                        ? formatDistanceToNow(new Date(key.last_used_at), { addSuffix: true })
+                        : 'Never'}
+                    </td>
+                    <td className="py-4 text-right">
+                      <div className="flex items-center justify-end space-x-2">
+                        <button className="rounded-lg p-2 text-gray-400 hover:bg-gray-800 hover:text-white">
+                          <Icons.Copy className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteKey(key.id)}
+                          className="rounded-lg p-2 text-gray-400 hover:bg-gray-800 hover:text-white"
+                        >
+                          <Icons.Trash className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
       </div>
-      
+
       {showCreateModal && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-black rounded-xl w-full max-w-md border border-gray-800">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-800">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-xl border border-gray-800 bg-black">
+            <div className="flex items-center justify-between border-b border-gray-800 px-6 py-4">
               <h3 className="text-lg font-medium text-white">Create API Key</h3>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 transition-colors hover:text-white"
               >
-                <Icons.X className="w-5 h-5" />
+                <Icons.X className="h-5 w-5" />
               </button>
             </div>
-            
-            <div className="p-6 space-y-4">
+
+            <div className="space-y-4 p-6">
               {actionError && (
-                <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-200 text-sm flex items-center">
-                  <Icons.AlertCircle className="w-4 h-4 mr-2 flex-shrink-0" />
+                <div className="flex items-center rounded-lg border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-200">
+                  <Icons.AlertCircle className="mr-2 h-4 w-4 flex-shrink-0" />
                   {actionError}
                 </div>
               )}
-              
+
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Key Name
-                </label>
+                <label className="mb-2 block text-sm font-medium text-gray-300">Key Name</label>
                 <input
                   type="text"
                   value={newKeyName}
                   onChange={(e) => setNewKeyName(e.target.value)}
-                  className="w-full bg-gray-900 border border-gray-800 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500"
+                  className="w-full rounded-lg border border-gray-800 bg-gray-900 px-4 py-2 text-white focus:ring-2 focus:ring-blue-500"
                   placeholder="e.g., Production API Key"
                 />
               </div>
-              
+
               <div className="flex justify-end space-x-4 pt-4">
                 <button
                   onClick={() => setShowCreateModal(false)}
-                  className="w-full sm:w-auto px-4 py-3 sm:py-2 text-gray-300 hover:text-white active:bg-gray-800 rounded-lg transition-colors"
+                  className="w-full rounded-lg px-4 py-3 text-gray-300 transition-colors hover:text-white active:bg-gray-800 sm:w-auto sm:py-2"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleCreateKey}
                   disabled={isCreating || !newKeyName.trim()}
-                  className="w-full sm:w-auto flex items-center justify-center px-4 py-3 sm:py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 active:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex w-full items-center justify-center rounded-lg bg-blue-500 px-4 py-3 text-white transition-colors hover:bg-blue-600 active:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:py-2"
                 >
                   {isCreating ? (
                     <>
-                      <Icons.Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      <Icons.Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Creating...
                     </>
                   ) : (

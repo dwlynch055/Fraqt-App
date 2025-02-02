@@ -32,13 +32,13 @@ export function SettingsDropdown({ isOpen, onClose, onNavigate }: SettingsDropdo
     { id: 'billing', label: 'Billing', icon: Icons.CreditCard },
     { id: 'security', label: 'Security', icon: Icons.Shield },
     { id: 'webhooks', label: 'Webhooks', icon: Icons.Webhook },
-    { id: 'certificates', label: 'Certificates', icon: Icons.Key }
+    { id: 'certificates', label: 'Certificates', icon: Icons.Key },
   ];
 
   return (
     <div
       ref={dropdownRef}
-      className="fixed right-6 top-[4.5rem] w-[calc(100vw-24px)] max-w-sm bg-black border border-gray-800 rounded-lg shadow-lg py-2 z-50"
+      className="fixed right-6 top-[4.5rem] z-50 w-[calc(100vw-24px)] max-w-sm rounded-lg border border-gray-800 bg-black py-2 shadow-lg"
     >
       {settingsItems.map(({ id, label, icon: Icon }) => (
         <button
@@ -47,9 +47,9 @@ export function SettingsDropdown({ isOpen, onClose, onNavigate }: SettingsDropdo
             onNavigate(id);
             onClose();
           }}
-          className="w-full px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800 flex items-center"
+          className="flex w-full items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white"
         >
-          <Icon className="w-4 h-4 mr-3" />
+          <Icon className="mr-3 h-4 w-4" />
           {label}
         </button>
       ))}

@@ -5,7 +5,7 @@ export const AUTH_ERRORS = {
   NETWORK_ERROR: 'Connection failed. Please check your internet connection.',
   USER_EXISTS: 'An account with this email already exists.',
   WEAK_PASSWORD: 'Password is too weak. Please use a stronger password.',
-  UNKNOWN: 'An unexpected error occurred. Please try again.'
+  UNKNOWN: 'An unexpected error occurred. Please try again.',
 } as const;
 
 export function getAuthErrorMessage(error: any): string {

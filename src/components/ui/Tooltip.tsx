@@ -14,10 +14,10 @@ export function Tooltip({ content, children, side = 'right' }: TooltipProps) {
   useEffect(() => {
     function updatePosition() {
       if (!tooltipRef.current || !containerRef.current) return;
-      
+
       const container = containerRef.current.getBoundingClientRect();
       const tooltip = tooltipRef.current;
-      
+
       if (side === 'right') {
         tooltip.style.left = `${container.width + 8}px`;
         tooltip.style.top = '50%';
@@ -31,7 +31,7 @@ export function Tooltip({ content, children, side = 'right' }: TooltipProps) {
   }, [show, side]);
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className="relative inline-block"
       onMouseEnter={() => setShow(true)}
@@ -41,12 +41,7 @@ export function Tooltip({ content, children, side = 'right' }: TooltipProps) {
       {show && (
         <div
           ref={tooltipRef}
-          className={`
-            absolute z-50 px-2 py-1 text-sm font-medium text-white 
-            bg-gray-900 rounded-md shadow-sm border border-gray-800 
-            px-3 py-1.5 min-h-[32px] flex items-center
-            whitespace-nowrap
-          `}
+          className={`absolute z-50 flex min-h-[32px] items-center whitespace-nowrap rounded-md border border-gray-800 bg-gray-900 px-2 px-3 py-1 py-1.5 text-sm font-medium text-white shadow-sm`}
           style={{ pointerEvents: 'none' }}
         >
           {content}

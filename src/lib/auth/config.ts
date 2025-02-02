@@ -5,5 +5,5 @@ export const authConfig: AuthConfig = {
   persistSession: true,
   detectSessionInUrl: true,
   storageKey: 'fraqt-auth-token',
-  flowType: 'pkce'
+  flowType: 'pkce',
 };

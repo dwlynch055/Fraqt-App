@@ -16,8 +16,9 @@ export function useAnalytics(merchantId: string | undefined) {
 
     async function fetchAnalytics() {
       try {
-        const { data, error } = await supabase
-          .rpc('get_merchant_analytics', { merchant_id_param: merchantId });
+        const { data, error } = await supabase.rpc('get_merchant_analytics', {
+          merchant_id_param: merchantId,
+        });
 
         if (error) throw error;
         setAnalytics(data as Analytics);

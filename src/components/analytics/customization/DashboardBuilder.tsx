@@ -16,31 +16,31 @@ export function DashboardBuilder() {
   };
 
   const handleUpdateWidget = (updatedWidget: Widget) => {
-    setWidgets(widgets.map(w => w.id === updatedWidget.id ? updatedWidget : w));
+    setWidgets(widgets.map((w) => (w.id === updatedWidget.id ? updatedWidget : w)));
     setEditingWidget(null);
   };
 
   const handleDeleteWidget = (widgetId: string) => {
-    setWidgets(widgets.filter(w => w.id !== widgetId));
+    setWidgets(widgets.filter((w) => w.id !== widgetId));
   };
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="flex items-center justify-between mb-6">
+    <div className="flex h-full flex-col">
+      <div className="mb-6 flex items-center justify-between">
         <div>
           <h2 className="text-xl font-semibold text-white">Dashboard Builder</h2>
           <p className="text-sm text-gray-400">Customize your analytics dashboard</p>
         </div>
         <button
           onClick={() => setShowLibrary(true)}
-          className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          className="flex items-center rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
         >
-          <Icons.Plus className="w-4 h-4 mr-2" />
+          <Icons.Plus className="mr-2 h-4 w-4" />
           Add Widget
         </button>
       </div>
 
-      <div className="flex-1 min-h-0">
+      <div className="min-h-0 flex-1">
         <WidgetGrid
           widgets={widgets}
           onEditWidget={setEditingWidget}
@@ -49,10 +49,7 @@ export function DashboardBuilder() {
       </div>
 
       {showLibrary && (
-        <WidgetLibrary
-          onClose={() => setShowLibrary(false)}
-          onSelectWidget={handleAddWidget}
-        />
+        <WidgetLibrary onClose={() => setShowLibrary(false)} onSelectWidget={handleAddWidget} />
       )}
 
       {editingWidget && (

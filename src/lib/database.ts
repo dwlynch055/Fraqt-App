@@ -8,7 +8,7 @@ interface DatabaseStore {
 const store: DatabaseStore = {
   merchants: new Map(),
   passes: new Map(),
-  templates: new Map()
+  templates: new Map(),
 };
 
 export const database = {
@@ -25,7 +25,7 @@ export const database = {
       const updated = { ...merchant, ...data };
       store.merchants.set(id, updated);
       return updated;
-    }
+    },
   },
   passes: {
     create: async (data: any) => {
@@ -34,7 +34,7 @@ export const database = {
       return { id, ...data };
     },
     list: async () => Array.from(store.passes.values()),
-    get: async (id: string) => store.passes.get(id)
+    get: async (id: string) => store.passes.get(id),
   },
   templates: {
     create: async (data: any) => {
@@ -43,6 +43,6 @@ export const database = {
       return { id, ...data };
     },
     list: async () => Array.from(store.templates.values()),
-    get: async (id: string) => store.templates.get(id)
-  }
+    get: async (id: string) => store.templates.get(id),
+  },
 };

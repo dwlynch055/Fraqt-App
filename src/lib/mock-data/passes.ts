@@ -18,12 +18,12 @@ export const mockPasses: PassWithTemplate[] = [
       style: {
         backgroundColor: '#1e40af',
         foregroundColor: '#ffffff',
-        labelColor: '#93c5fd'
+        labelColor: '#93c5fd',
       },
       nfc_enabled: true,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    }
+      updated_at: new Date().toISOString(),
+    },
   },
   {
     id: '2',
@@ -42,11 +42,11 @@ export const mockPasses: PassWithTemplate[] = [
       style: {
         backgroundColor: '#047857',
         foregroundColor: '#ffffff',
-        labelColor: '#6ee7b7'
+        labelColor: '#6ee7b7',
       },
       nfc_enabled: false,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    }
-  }
+      updated_at: new Date().toISOString(),
+    },
+  },
 ];

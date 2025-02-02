@@ -44,11 +44,11 @@ export function PassCreationWizard({ onClose, onComplete }: PassCreationWizardPr
     nfcEnabled: true,
   });
   const [error, setError] = useState('');
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+
     if (!formData.name || !formData.description || !formData.type) {
       setError('Please fill in all required fields');
       return;
@@ -63,13 +63,13 @@ export function PassCreationWizard({ onClose, onComplete }: PassCreationWizardPr
       setError(errorMessage);
     }
   };
-  
+
   const steps = {
     type: {
       title: 'Choose Pass Type',
       subtitle: 'Select the type of pass you want to create',
       content: (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {passTypes.map(({ id, icon: Icon, title, description }) => (
             <button
               key={id}
@@ -77,11 +77,11 @@ export function PassCreationWizard({ onClose, onComplete }: PassCreationWizardPr
                 setFormData({ ...formData, type: id });
                 setCurrentStep('design');
               }}
-              className="flex flex-col items-center p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors"
+              className="flex flex-col items-center rounded-lg bg-gray-900 p-6 transition-colors hover:bg-gray-800"
             >
-              <Icon className="w-12 h-12 mb-4 text-white" />
-              <h3 className="text-lg font-medium text-white mb-2">{title}</h3>
-              <p className="text-sm text-gray-400 text-center">{description}</p>
+              <Icon className="mb-4 h-12 w-12 text-white" />
+              <h3 className="mb-2 text-lg font-medium text-white">{title}</h3>
+              <p className="text-center text-sm text-gray-400">{description}</p>
             </button>
           ))}
         </div>
@@ -97,10 +97,10 @@ export function PassCreationWizard({ onClose, onComplete }: PassCreationWizardPr
       subtitle: 'Configure pass functionality and features',
       content: (
         <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
-              <div className="flex items-center mb-4">
-                <Icons.Nfc className="w-6 h-6 text-white mr-3" />
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
+              <div className="mb-4 flex items-center">
+                <Icons.Nfc className="mr-3 h-6 w-6 text-white" />
                 <h3 className="text-lg font-medium text-white">NFC Capabilities</h3>
               </div>
               <div className="space-y-4">
@@ -109,19 +109,20 @@ export function PassCreationWizard({ onClose, onComplete }: PassCreationWizardPr
                     type="checkbox"
                     checked={formData.nfcEnabled}
                     onChange={(e) => setFormData({ ...formData, nfcEnabled: e.target.checked })}
-                    className="w-4 h-4 text-white bg-gray-900 border-gray-800 rounded focus:ring-white focus:ring-2"
+                    className="h-4 w-4 rounded border-gray-800 bg-gray-900 text-white focus:ring-2 focus:ring-white"
                   />
                   <span className="ml-2 text-sm text-gray-300">Enable NFC</span>
                 </label>
                 <p className="text-sm text-gray-400">
-                  Allow customers to tap their phone to interact with your pass at supported terminals
+                  Allow customers to tap their phone to interact with your pass at supported
+                  terminals
                 </p>
               </div>
             </div>
 
-            <div className="bg-gray-900 p-6 rounded-lg border border-gray-800">
-              <div className="flex items-center mb-4">
-                <Icons.Smartphone className="w-6 h-6 text-white mr-3" />
+            <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
+              <div className="mb-4 flex items-center">
+                <Icons.Smartphone className="mr-3 h-6 w-6 text-white" />
                 <h3 className="text-lg font-medium text-white">Mobile Settings</h3>
               </div>
               <div className="space-y-4">
@@ -129,7 +130,7 @@ export function PassCreationWizard({ onClose, onComplete }: PassCreationWizardPr
                   <input
                     type="checkbox"
                     checked
-                    className="w-4 h-4 text-white bg-gray-900 border-gray-800 rounded focus:ring-white focus:ring-2"
+                    className="h-4 w-4 rounded border-gray-800 bg-gray-900 text-white focus:ring-2 focus:ring-white"
                   />
                   <span className="ml-2 text-sm text-gray-300">Enable Push Notifications</span>
                 </label>
@@ -149,10 +150,10 @@ export function PassCreationWizard({ onClose, onComplete }: PassCreationWizardPr
             </button>
             <button
               onClick={() => setCurrentStep('review')}
-              className="flex items-center px-4 py-2 bg-white text-black rounded-lg hover:bg-gray-100"
+              className="flex items-center rounded-lg bg-white px-4 py-2 text-black hover:bg-gray-100"
             >
               Next Step
-              <Icons.ChevronRight className="w-4 h-4 ml-2" />
+              <Icons.ChevronRight className="ml-2 h-4 w-4" />
             </button>
           </div>
         </div>
@@ -163,16 +164,16 @@ export function PassCreationWizard({ onClose, onComplete }: PassCreationWizardPr
       subtitle: 'Review your pass details before creating',
       content: (
         <div className="space-y-6">
-          <div className="bg-gray-900 rounded-lg border border-gray-800 overflow-hidden">
+          <div className="overflow-hidden rounded-lg border border-gray-800 bg-gray-900">
             <div className="p-6">
-              <h3 className="text-lg font-medium text-white mb-4">Pass Preview</h3>
+              <h3 className="mb-4 text-lg font-medium text-white">Pass Preview</h3>
               <div
-                className="w-full h-48 rounded-lg flex items-center justify-center mb-4"
+                className="mb-4 flex h-48 w-full items-center justify-center rounded-lg"
                 style={{ backgroundColor: formData.style?.backgroundColor }}
               >
                 <div className="text-center">
                   <h4
-                    className="text-xl font-bold mb-2"
+                    className="mb-2 text-xl font-bold"
                     style={{ color: formData.style?.foregroundColor }}
                   >
                     {formData.name || 'Pass Name'}
@@ -182,14 +183,14 @@ export function PassCreationWizard({ onClose, onComplete }: PassCreationWizardPr
                   </p>
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="block text-gray-400 mb-1">Pass Type</span>
+                  <span className="mb-1 block text-gray-400">Pass Type</span>
                   <span className="text-white">{formData.type}</span>
                 </div>
                 <div>
-                  <span className="block text-gray-400 mb-1">NFC Enabled</span>
+                  <span className="mb-1 block text-gray-400">NFC Enabled</span>
                   <span className="text-white">{formData.nfcEnabled ? 'Yes' : 'No'}</span>
                 </div>
               </div>
@@ -205,7 +206,7 @@ export function PassCreationWizard({ onClose, onComplete }: PassCreationWizardPr
             </button>
             <button
               onClick={() => onComplete(formData as PassTemplate)}
-              className="px-4 py-2 bg-white text-black rounded-lg hover:bg-gray-100"
+              className="rounded-lg bg-white px-4 py-2 text-black hover:bg-gray-100"
             >
               Create Pass
             </button>
@@ -216,19 +217,19 @@ export function PassCreationWizard({ onClose, onComplete }: PassCreationWizardPr
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-black rounded-xl w-full max-w-4xl">
-        <div className="px-6 py-4 flex items-center justify-between">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
+      <div className="w-full max-w-4xl rounded-xl bg-black">
+        <div className="flex items-center justify-between px-6 py-4">
           <div>
-          <h2 className="text-xl font-semibold text-white">{steps[currentStep].title}</h2>
-          <p className="mt-1 text-sm text-gray-400">{steps[currentStep].subtitle}</p>
+            <h2 className="text-xl font-semibold text-white">{steps[currentStep].title}</h2>
+            <p className="mt-1 text-sm text-gray-400">{steps[currentStep].subtitle}</p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 transition-colors"
+            className="rounded-lg p-2 text-gray-400 transition-colors hover:bg-gray-800 hover:text-white"
             aria-label="Close"
           >
-            <Icons.X className="w-5 h-5" />
+            <Icons.X className="h-5 w-5" />
           </button>
         </div>
         <div className="p-6">{steps[currentStep].content}</div>

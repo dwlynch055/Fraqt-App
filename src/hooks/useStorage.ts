@@ -27,33 +27,29 @@ export function useStorage() {
       }
 
       // Upload file
-      const { data, error } = await supabase.storage
-        .from(bucket)
-        .upload(path, file, {
-          cacheControl: '3600',
-          upsert: true,
-          onUploadProgress: onProgress ? 
-            (progress) => onProgress((progress.loaded / progress.total) * 100) : 
-            undefined
-        });
+      const { data, error } = await supabase.storage.from(bucket).upload(path, file, {
+        cacheControl: '3600',
+        upsert: true,
+        onUploadProgress: onProgress
+          ? (progress) => onProgress((progress.loaded / progress.total) * 100)
+          : undefined,
+      });
 
       if (error) throw error;
 
       // Get public URL
-      const { data: { publicUrl } } = supabase.storage
-        .from(bucket)
-        .getPublicUrl(data.path);
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from(bucket).getPublicUrl(data.path);
 
       return { path: data.path, url: publicUrl };
     } catch (err) {
-      const storageError: StorageError = err instanceof Error ? 
-        err : 
-        new Error('Upload failed');
-      
+      const storageError: StorageError = err instanceof Error ? err : new Error('Upload failed');
+
       if (err instanceof Error && 'statusCode' in err) {
         storageError.statusCode = (err as any).statusCode;
       }
-      
+
       setError(storageError);
       throw storageError;
     } finally {
@@ -66,16 +62,12 @@ export function useStorage() {
     setError(null);
 
     try {
-      const { error } = await supabase.storage
-        .from(bucket)
-        .remove([path]);
+      const { error } = await supabase.storage.from(bucket).remove([path]);
 
       if (error) throw error;
     } catch (err) {
-      const storageError: StorageError = err instanceof Error ? 
-        err : 
-        new Error('Delete failed');
-      
+      const storageError: StorageError = err instanceof Error ? err : new Error('Delete failed');
+
       setError(storageError);
       throw storageError;
     } finally {
@@ -88,17 +80,13 @@ export function useStorage() {
     setError(null);
 
     try {
-      const { data, error } = await supabase.storage
-        .from(bucket)
-        .list(path);
+      const { data, error } = await supabase.storage.from(bucket).list(path);
 
       if (error) throw error;
       return data;
     } catch (err) {
-      const storageError: StorageError = err instanceof Error ? 
-        err : 
-        new Error('List failed');
-      
+      const storageError: StorageError = err instanceof Error ? err : new Error('List failed');
+
       setError(storageError);
       throw storageError;
     } finally {
@@ -111,6 +99,6 @@ export function useStorage() {
     error,
     upload,
     remove,
-    list
+    list,
   };
 }

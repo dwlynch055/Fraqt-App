@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 0%;
@@ -26,40 +26,53 @@
     --radius: 0.5rem;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
     font-size: 0.875rem;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family:
+      'Inter',
+      system-ui,
+      -apple-system,
+      sans-serif;
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
     -webkit-tap-highlight-color: transparent;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-size: revert;
   }
-  
+
   /* Mobile button optimizations */
-  button, [role="button"] {
+  button,
+  [role='button'] {
     @apply touch-manipulation select-none;
     min-height: 2.75rem;
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
+
   /* Ensure touch targets are large enough */
   @media (max-width: 640px) {
-    button, [role="button"] {
+    button,
+    [role='button'] {
       min-height: 2.75rem;
       min-width: 2.75rem;
     }
-    
+
     /* Icon-only buttons */
     button:has(> svg:only-child),
-    [role="button"]:has(> svg:only-child) {
+    [role='button']:has(> svg:only-child) {
       @apply p-3;
     }
   }

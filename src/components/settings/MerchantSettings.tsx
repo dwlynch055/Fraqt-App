@@ -32,9 +32,5 @@ export function MerchantSettings() {
     }
   };
 
-  return (
-    <div className="max-w-5xl mx-auto">
-      {renderContent()}
-    </div>
-  );
+  return <div className="mx-auto max-w-5xl">{renderContent()}</div>;
 }

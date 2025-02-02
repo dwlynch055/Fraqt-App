@@ -19,5 +19,5 @@ export const useDataStore = create<DataState>((set) => ({
   apiKeys: null,
   setAnalytics: (data) => set({ analytics: data }),
   setTeamData: (members, invitations) => set({ members, invitations }),
-  setApiKeys: (apiKeys) => set({ apiKeys })
+  setApiKeys: (apiKeys) => set({ apiKeys }),
 }));

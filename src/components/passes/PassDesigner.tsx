@@ -23,8 +23,8 @@ export function PassDesigner() {
     fields: {
       name: true,
       tier: true,
-      points: true
-    }
+      points: true,
+    },
   });
 
   const [activeTab, setActiveTab] = useState<'items' | 'barcode'>('items');
@@ -32,13 +32,13 @@ export function PassDesigner() {
   return (
     <div className="flex h-[calc(100vh-8rem)]">
       {/* Left Panel - Design Controls */}
-      <div className="w-80 bg-black border-r border-gray-800 overflow-y-auto">
-        <div className="p-6 space-y-6">
+      <div className="w-80 overflow-y-auto border-r border-gray-800 bg-black">
+        <div className="space-y-6 p-6">
           {/* Tabs */}
           <div className="flex border-b border-gray-800">
             <button
               onClick={() => setActiveTab('items')}
-              className={`pb-3 px-4 text-sm font-medium border-b-2 ${
+              className={`border-b-2 px-4 pb-3 text-sm font-medium ${
                 activeTab === 'items'
                   ? 'border-white text-white'
                   : 'border-transparent text-gray-400 hover:text-white'
@@ -48,7 +48,7 @@ export function PassDesigner() {
             </button>
             <button
               onClick={() => setActiveTab('barcode')}
-              className={`pb-3 px-4 text-sm font-medium border-b-2 ${
+              className={`border-b-2 px-4 pb-3 text-sm font-medium ${
                 activeTab === 'barcode'
                   ? 'border-white text-white'
                   : 'border-transparent text-gray-400 hover:text-white'
@@ -61,27 +61,23 @@ export function PassDesigner() {
           {activeTab === 'items' && (
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="mb-2 block text-sm font-medium text-gray-300">
                   Background Color
                 </label>
                 <input
                   type="color"
                   value={design.backgroundColor}
-                  onChange={(e) =>
-                    setDesign({ ...design, backgroundColor: e.target.value })
-                  }
-                  className="w-full h-10 rounded cursor-pointer bg-gray-900 border border-gray-800"
+                  onChange={(e) => setDesign({ ...design, backgroundColor: e.target.value })}
+                  className="h-10 w-full cursor-pointer rounded border border-gray-800 bg-gray-900"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Logo
-                </label>
-                <div className="flex items-center justify-center w-full">
-                  <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-800 border-dashed rounded-lg cursor-pointer hover:border-white">
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <Icons.Upload className="w-8 h-8 mb-3 text-gray-400" />
+                <label className="mb-2 block text-sm font-medium text-gray-300">Logo</label>
+                <div className="flex w-full items-center justify-center">
+                  <label className="flex h-32 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-800 hover:border-white">
+                    <div className="flex flex-col items-center justify-center pb-6 pt-5">
+                      <Icons.Upload className="mb-3 h-8 w-8 text-gray-400" />
                       <p className="mb-2 text-sm text-gray-400">
                         <span className="font-medium">Click to upload</span> or drag and drop
                       </p>
@@ -93,9 +89,7 @@ export function PassDesigner() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Fields
-                </label>
+                <label className="mb-2 block text-sm font-medium text-gray-300">Fields</label>
                 <div className="space-y-3">
                   {Object.entries(design.fields).map(([field, enabled]) => (
                     <label key={field} className="flex items-center">
@@ -111,11 +105,9 @@ export function PassDesigner() {
                             },
                           })
                         }
-                        className="w-4 h-4 text-blue-500 bg-gray-900 border-gray-800 rounded focus:ring-blue-500"
+                        className="h-4 w-4 rounded border-gray-800 bg-gray-900 text-blue-500 focus:ring-blue-500"
                       />
-                      <span className="ml-2 text-sm text-gray-300 capitalize">
-                        {field}
-                      </span>
+                      <span className="ml-2 text-sm capitalize text-gray-300">{field}</span>
                     </label>
                   ))}
                 </div>
@@ -126,28 +118,22 @@ export function PassDesigner() {
           {activeTab === 'barcode' && (
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Show Barcode
-                </label>
+                <label className="mb-2 block text-sm font-medium text-gray-300">Show Barcode</label>
                 <label className="flex items-center">
                   <input
                     type="checkbox"
                     checked={design.showBarcode}
-                    onChange={(e) =>
-                      setDesign({ ...design, showBarcode: e.target.checked })
-                    }
-                    className="w-4 h-4 text-blue-500 bg-gray-900 border-gray-800 rounded focus:ring-blue-500"
+                    onChange={(e) => setDesign({ ...design, showBarcode: e.target.checked })}
+                    className="h-4 w-4 rounded border-gray-800 bg-gray-900 text-blue-500 focus:ring-blue-500"
                   />
-                  <span className="ml-2 text-sm text-gray-300">
-                    Display barcode on pass
-                  </span>
+                  <span className="ml-2 text-sm text-gray-300">Display barcode on pass</span>
                 </label>
               </div>
 
               {design.showBarcode && (
                 <>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="mb-2 block text-sm font-medium text-gray-300">
                       Barcode Type
                     </label>
                     <div className="grid grid-cols-2 gap-4">
@@ -160,7 +146,7 @@ export function PassDesigner() {
                               barcodeType: type as PassDesignState['barcodeType'],
                             })
                           }
-                          className={`p-4 text-center rounded-lg border ${
+                          className={`rounded-lg border p-4 text-center ${
                             design.barcodeType === type
                               ? 'border-blue-500 bg-blue-500/10 text-white'
                               : 'border-gray-800 text-gray-400 hover:border-gray-700'
@@ -173,16 +159,14 @@ export function PassDesigner() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                    <label className="mb-2 block text-sm font-medium text-gray-300">
                       Barcode Content
                     </label>
                     <input
                       type="text"
                       value={design.barcodeContent}
-                      onChange={(e) =>
-                        setDesign({ ...design, barcodeContent: e.target.value })
-                      }
-                      className="w-full bg-gray-900 border border-gray-800 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500"
+                      onChange={(e) => setDesign({ ...design, barcodeContent: e.target.value })}
+                      className="w-full rounded-lg border border-gray-800 bg-gray-900 px-4 py-2 text-white focus:ring-2 focus:ring-blue-500"
                       placeholder="Enter barcode content"
                     />
                     <p className="mt-1 text-xs text-gray-500">
@@ -197,40 +181,40 @@ export function PassDesigner() {
       </div>
 
       {/* Right Panel - Pass Preview */}
-      <div className="flex-1 bg-gray-900 p-8 overflow-y-auto">
-        <div className="max-w-sm mx-auto">
+      <div className="flex-1 overflow-y-auto bg-gray-900 p-8">
+        <div className="mx-auto max-w-sm">
           {/* Pass Preview */}
           <div
-            className="aspect-[1.586/1] rounded-xl shadow-2xl relative overflow-hidden transition-all"
+            className="relative aspect-[1.586/1] overflow-hidden rounded-xl shadow-2xl transition-all"
             style={{ backgroundColor: design.backgroundColor }}
           >
             {/* Logo Area */}
-            <div className="absolute top-4 left-4 w-12 h-12 bg-black/20 rounded-lg flex items-center justify-center">
+            <div className="absolute left-4 top-4 flex h-12 w-12 items-center justify-center rounded-lg bg-black/20">
               {design.logo ? (
-                <img src={design.logo} alt="Logo" className="w-8 h-8" />
+                <img src={design.logo} alt="Logo" className="h-8 w-8" />
               ) : (
-                <Icons.Image className="w-6 h-6 text-white/40" />
+                <Icons.Image className="h-6 w-6 text-white/40" />
               )}
             </div>
 
             {/* Fields */}
-            <div className="absolute top-20 left-4 right-4 space-y-4">
+            <div className="absolute left-4 right-4 top-20 space-y-4">
               {design.fields.name && (
                 <div>
                   <div className="text-xs text-white/60">NAME</div>
-                  <div className="text-sm text-white font-medium">John Doe</div>
+                  <div className="text-sm font-medium text-white">John Doe</div>
                 </div>
               )}
               {design.fields.tier && (
                 <div>
                   <div className="text-xs text-white/60">TIER</div>
-                  <div className="text-sm text-white font-medium">Gold Member</div>
+                  <div className="text-sm font-medium text-white">Gold Member</div>
                 </div>
               )}
               {design.fields.points && (
                 <div>
                   <div className="text-xs text-white/60">POINTS</div>
-                  <div className="text-sm text-white font-medium">2,500</div>
+                  <div className="text-sm font-medium text-white">2,500</div>
                 </div>
               )}
             </div>
@@ -238,7 +222,7 @@ export function PassDesigner() {
             {/* Barcode */}
             {design.showBarcode && (
               <div className="absolute bottom-4 left-4 right-4">
-                <div className="w-full h-16 bg-white rounded-lg flex items-center justify-center">
+                <div className="flex h-16 w-full items-center justify-center rounded-lg bg-white">
                   {/* Placeholder for actual barcode rendering */}
                   <div className="text-xs text-gray-400">
                     {design.barcodeType.toUpperCase()} BARCODE
@@ -250,11 +234,11 @@ export function PassDesigner() {
 
           {/* Preview Controls */}
           <div className="mt-8 flex justify-center space-x-4">
-            <button className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors">
-              <Icons.Smartphone className="w-4 h-4" />
+            <button className="rounded-lg bg-gray-800 px-4 py-2 text-white transition-colors hover:bg-gray-700">
+              <Icons.Smartphone className="h-4 w-4" />
             </button>
-            <button className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors">
-              <Icons.RotateCw className="w-4 h-4" />
+            <button className="rounded-lg bg-gray-800 px-4 py-2 text-white transition-colors hover:bg-gray-700">
+              <Icons.RotateCw className="h-4 w-4" />
             </button>
           </div>
         </div>

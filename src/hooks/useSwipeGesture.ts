@@ -5,10 +5,7 @@ interface SwipeConfig {
   onSwipeRight?: () => void;
 }
 
-export function useSwipeGesture({
-  onSwipeLeft,
-  onSwipeRight,
-}: SwipeConfig) {
+export function useSwipeGesture({ onSwipeLeft, onSwipeRight }: SwipeConfig) {
   // Return empty object since we're removing swipe functionality
   return { showHint: false };
 }

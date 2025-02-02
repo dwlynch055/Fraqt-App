@@ -20,9 +20,9 @@ const visibilityControls: VisibilityControl[] = [
     options: [
       { id: 'hidden', label: 'Hidden' },
       { id: 'organization', label: 'Visible to organization owners' },
-      { id: 'everyone', label: 'Visible to everyone' }
+      { id: 'everyone', label: 'Visible to everyone' },
     ],
-    value: 'hidden'
+    value: 'hidden',
   },
   {
     title: 'Usage dashboard',
@@ -30,9 +30,9 @@ const visibilityControls: VisibilityControl[] = [
     options: [
       { id: 'hidden', label: 'Hidden' },
       { id: 'organization', label: 'Visible to organization owners' },
-      { id: 'everyone', label: 'Visible to everyone' }
+      { id: 'everyone', label: 'Visible to everyone' },
     ],
-    value: 'everyone'
+    value: 'everyone',
   },
   {
     title: 'Chat Completions',
@@ -41,10 +41,10 @@ const visibilityControls: VisibilityControl[] = [
       { id: 'hidden', label: 'Hidden' },
       { id: 'organization', label: 'Visible to organization owners' },
       { id: 'everyone', label: 'Visible to everyone' },
-      { id: 'selected', label: 'Visible for selected projects' }
+      { id: 'selected', label: 'Visible for selected projects' },
     ],
-    value: 'organization'
-  }
+    value: 'organization',
+  },
 ];
 
 export function DataControlsSection() {
@@ -54,9 +54,7 @@ export function DataControlsSection() {
     <div className="space-y-6">
       <div>
         <h2 className="text-xl font-semibold text-white">Data Controls</h2>
-        <p className="text-sm text-gray-400 mt-1">
-          Configure visibility and sharing settings
-        </p>
+        <p className="mt-1 text-sm text-gray-400">Configure visibility and sharing settings</p>
       </div>
 
       <div className="border-b border-gray-800">
@@ -65,7 +63,7 @@ export function DataControlsSection() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab.toLowerCase())}
-              className={`pb-4 text-sm font-medium border-b-2 ${
+              className={`border-b-2 pb-4 text-sm font-medium ${
                 activeTab === tab.toLowerCase()
                   ? 'border-white text-white'
                   : 'border-transparent text-gray-400 hover:text-white'
@@ -82,24 +80,21 @@ export function DataControlsSection() {
           <div key={control.title} className="space-y-4">
             <div>
               <h3 className="text-lg font-medium text-white">{control.title}</h3>
-              <p className="text-sm text-gray-400 mt-1">{control.description}</p>
+              <p className="mt-1 text-sm text-gray-400">{control.description}</p>
             </div>
 
             <div className="space-y-3">
               {control.options.map((option) => (
-                <label
-                  key={option.id}
-                  className="flex items-center space-x-3 cursor-pointer"
-                >
+                <label key={option.id} className="flex cursor-pointer items-center space-x-3">
                   <div
-                    className={`w-4 h-4 rounded-full border ${
+                    className={`h-4 w-4 rounded-full border ${
                       control.value === option.id
                         ? 'border-blue-500 bg-blue-500'
                         : 'border-gray-600'
                     } flex items-center justify-center`}
                   >
                     {control.value === option.id && (
-                      <div className="w-2 h-2 bg-white rounded-full" />
+                      <div className="h-2 w-2 rounded-full bg-white" />
                     )}
                   </div>
                   <span className="text-sm text-gray-300">{option.label}</span>
@@ -110,7 +105,7 @@ export function DataControlsSection() {
         ))}
 
         <div className="pt-4">
-          <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+          <button className="rounded-lg bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600">
             Save Changes
           </button>
         </div>

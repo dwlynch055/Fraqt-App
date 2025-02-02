@@ -25,7 +25,7 @@ export async function issueTicket(eventId: string, userId: string) {
     id: '1',
     event_id: eventId,
     user_id: userId,
-    status: 'active'
+    status: 'active',
   };
 }
 

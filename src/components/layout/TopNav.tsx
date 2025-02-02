@@ -20,7 +20,14 @@ interface ProfileDropdownProps {
   onSignOut: () => void;
 }
 
-function ProfileDropdown({ isOpen, onClose, displayName, email, onNavigate, onSignOut }: ProfileDropdownProps) {
+function ProfileDropdown({
+  isOpen,
+  onClose,
+  displayName,
+  email,
+  onNavigate,
+  onSignOut,
+}: ProfileDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,43 +48,43 @@ function ProfileDropdown({ isOpen, onClose, displayName, email, onNavigate, onSi
   return (
     <div
       ref={dropdownRef}
-      className="fixed right-6 top-[4.5rem] w-[calc(100vw-24px)] max-w-sm bg-black border border-gray-800 rounded-lg shadow-lg py-2 z-50"
+      className="fixed right-6 top-[4.5rem] z-50 w-[calc(100vw-24px)] max-w-sm rounded-lg border border-gray-800 bg-black py-2 shadow-lg"
     >
-      <div className="px-4 py-3 border-b border-gray-800">
+      <div className="border-b border-gray-800 px-4 py-3">
         <p className="text-sm font-medium text-white">{displayName}</p>
-        <p className="text-xs text-gray-400 mt-0.5">{email}</p>
+        <p className="mt-0.5 text-xs text-gray-400">{email}</p>
       </div>
-      
+
       <div className="py-2">
         <button
           onClick={() => onNavigate('profile')}
-          className="w-full px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800 flex items-center"
+          className="flex w-full items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white"
         >
-          <Icons.User className="w-4 h-4 mr-3" />
+          <Icons.User className="mr-3 h-4 w-4" />
           Profile
         </button>
         <button
           onClick={() => onNavigate('billing')}
-          className="w-full px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800 flex items-center"
+          className="flex w-full items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white"
         >
-          <Icons.CreditCard className="w-4 h-4 mr-3" />
+          <Icons.CreditCard className="mr-3 h-4 w-4" />
           Billing
         </button>
         <button
           onClick={() => onNavigate('security')}
-          className="w-full px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-800 flex items-center"
+          className="flex w-full items-center px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white"
         >
-          <Icons.Shield className="w-4 h-4 mr-3" />
+          <Icons.Shield className="mr-3 h-4 w-4" />
           Security
         </button>
       </div>
-      
+
       <div className="border-t border-gray-800 py-2">
         <button
           onClick={onSignOut}
-          className="w-full px-4 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-gray-800 flex items-center"
+          className="flex w-full items-center px-4 py-2 text-sm text-red-400 hover:bg-gray-800 hover:text-red-300"
         >
-          <Icons.LogOut className="w-4 h-4 mr-3" />
+          <Icons.LogOut className="mr-3 h-4 w-4" />
           Sign Out
         </button>
       </div>
@@ -90,7 +97,7 @@ export function TopNav({ onMobileMenuOpen }: TopNavProps) {
   const { user, signOut } = useAuth();
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
-  
+
   // Get name from email if no name is set
   const displayName = user?.email?.split('@')[0] || 'User';
 
@@ -108,53 +115,63 @@ export function TopNav({ onMobileMenuOpen }: TopNavProps) {
       console.error('Error signing out:', error);
     }
   };
-  
+
   return (
-    <div className="h-16 bg-black/90 backdrop-blur-sm sticky top-0 z-10 md:pl-0 border-b border-gray-800" style={{ marginTop: '5px' }}>
-      <div className="h-full px-6 flex items-center justify-between">
+    <div
+      className="sticky top-0 z-10 h-16 border-b border-gray-800 bg-black/90 backdrop-blur-sm md:pl-0"
+      style={{ marginTop: '5px' }}
+    >
+      <div className="flex h-full items-center justify-between px-6">
         {/* Mobile Logo */}
         <div className="md:hidden">
           <Logo className="h-[1.8rem] w-auto text-white" />
         </div>
 
         {/* Desktop Search */}
-        <div className="hidden md:block flex-1 max-w-xl">
+        <div className="hidden max-w-xl flex-1 md:block">
           <div className="flex items-center gap-4">
             {useNavigationStore().isSidebarCollapsed && (
-              <div className="cursor-pointer flex-shrink-0" style={{ marginLeft: '-12px' }} onClick={() => setActiveSection('dashboard')}>
+              <div
+                className="flex-shrink-0 cursor-pointer"
+                style={{ marginLeft: '-12px' }}
+                onClick={() => setActiveSection('dashboard')}
+              >
                 <Logo className="h-[1.8rem] w-auto text-white" />
               </div>
             )}
-            <div className="flex h-10 items-center gap-3 w-full rounded-lg bg-gray-900 px-4 text-gray-400 border border-gray-800 hover:border-gray-700 transition-colors" style={{ marginLeft: useNavigationStore().isSidebarCollapsed ? '15px' : '-7px' }}>
+            <div
+              className="flex h-10 w-full items-center gap-3 rounded-lg border border-gray-800 bg-gray-900 px-4 text-gray-400 transition-colors hover:border-gray-700"
+              style={{ marginLeft: useNavigationStore().isSidebarCollapsed ? '15px' : '-7px' }}
+            >
               <Command className="h-5 w-5" />
               <input
                 type="text"
                 placeholder="Type / to search"
-                className="flex-1 bg-transparent outline-none placeholder:text-gray-500 text-base h-full"
+                className="h-full flex-1 bg-transparent text-base outline-none placeholder:text-gray-500"
               />
-              <kbd className="hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-gray-700 bg-gray-800 px-1.5 font-mono text-xs font-medium text-gray-400">
+              <kbd className="hidden h-5 select-none items-center gap-1 rounded border border-gray-700 bg-gray-800 px-1.5 font-mono text-xs font-medium text-gray-400 sm:inline-flex">
                 <span className="text-xs">⌘</span>K
               </kbd>
             </div>
           </div>
         </div>
-        
+
         <div className="flex items-center space-x-5">
-          <div className="hidden md:flex items-center space-x-4">
-            <button 
-              className={`text-sm px-2 ${activeSection === 'dashboard' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
+          <div className="hidden items-center space-x-4 md:flex">
+            <button
+              className={`px-2 text-sm ${activeSection === 'dashboard' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
               onClick={() => setActiveSection('dashboard')}
             >
               Dashboard
             </button>
-            <button 
-              className={`text-sm px-2 ${activeSection === 'docs' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
+            <button
+              className={`px-2 text-sm ${activeSection === 'docs' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
               onClick={() => setActiveSection('docs')}
             >
               Docs
             </button>
-            <button 
-              className={`text-sm px-2 ${activeSection === 'api' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
+            <button
+              className={`px-2 text-sm ${activeSection === 'api' ? 'text-white' : 'text-gray-400 hover:text-white'}`}
               onClick={() => setActiveSection('api')}
             >
               API Reference
@@ -164,19 +181,19 @@ export function TopNav({ onMobileMenuOpen }: TopNavProps) {
           {/* Mobile Menu Button */}
           <button
             onClick={onMobileMenuOpen}
-            className="md:hidden p-3 text-gray-400 hover:text-white active:bg-gray-800 transition-all rounded-lg border border-gray-800 hover:border-gray-700 bg-gradient-to-b from-white/5 to-transparent backdrop-blur-sm"
+            className="rounded-lg border border-gray-800 bg-gradient-to-b from-white/5 to-transparent p-3 text-gray-400 backdrop-blur-sm transition-all hover:border-gray-700 hover:text-white active:bg-gray-800 md:hidden"
           >
-            <Icons.Menu className="w-6 h-6" />
+            <Icons.Menu className="h-6 w-6" />
           </button>
 
           {/* Settings and Profile Icons */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden items-center space-x-1 md:flex">
             <div className="relative">
               <button
                 onClick={() => setShowSettingsMenu(!showSettingsMenu)}
-                className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800 active:bg-gray-700 transition-colors"
+                className="rounded-lg p-2 text-gray-400 transition-colors hover:bg-gray-800 hover:text-white active:bg-gray-700"
               >
-                <Icons.Settings className="w-5 h-5" />
+                <Icons.Settings className="h-5 w-5" />
               </button>
               <SettingsDropdown
                 isOpen={showSettingsMenu}
@@ -184,7 +201,7 @@ export function TopNav({ onMobileMenuOpen }: TopNavProps) {
                 onNavigate={handleNavigate}
               />
             </div>
-            
+
             <div className="relative">
               <button
                 onClick={() => setShowProfileMenu(!showProfileMenu)}

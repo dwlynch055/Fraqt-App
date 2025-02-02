@@ -16,10 +16,12 @@ export async function retryWithBackoff<T>(
     initialDelay = 1000,
     maxDelay = 5000,
     shouldRetry = (error) => {
-      return error?.name === 'AuthRetryableFetchError' || 
-             error?.name === 'FetchError' ||
-             error?.status === 0;
-    }
+      return (
+        error?.name === 'AuthRetryableFetchError' ||
+        error?.name === 'FetchError' ||
+        error?.status === 0
+      );
+    },
   } = options;
 
   let attempts = 0;
@@ -30,20 +32,20 @@ export async function retryWithBackoff<T>(
   while (attempts < maxAttempts) {
     try {
       if (!isOnline()) {
-        await new Promise(resolve => setTimeout(resolve, delay));
+        await new Promise((resolve) => setTimeout(resolve, delay));
         continue;
       }
 
       return await operation();
     } catch (error) {
       attempts++;
-      
+
       if (attempts === maxAttempts || !shouldRetry(error)) {
         throw error;
       }
 
       console.warn(`Auth operation failed, retrying (${attempts}/${maxAttempts})...`);
-      await new Promise(resolve => setTimeout(resolve, delay));
+      await new Promise((resolve) => setTimeout(resolve, delay));
       delay = Math.min(delay * 2, maxDelay);
       continue;
     }

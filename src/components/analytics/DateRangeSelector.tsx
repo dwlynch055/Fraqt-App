@@ -1,6 +1,15 @@
 import React from 'react';
 import { Icons } from '../icons';
-import { format, subDays, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isToday, isSameDay } from 'date-fns';
+import {
+  format,
+  subDays,
+  startOfMonth,
+  endOfMonth,
+  eachDayOfInterval,
+  isSameMonth,
+  isToday,
+  isSameDay,
+} from 'date-fns';
 
 interface DateRangeSelectorProps {
   startDate: Date;
@@ -9,7 +18,12 @@ interface DateRangeSelectorProps {
   comparisonRange?: { start: Date; end: Date };
 }
 
-export function DateRangeSelector({ startDate, endDate, onDateChange, comparisonRange }: DateRangeSelectorProps) {
+export function DateRangeSelector({
+  startDate,
+  endDate,
+  onDateChange,
+  comparisonRange,
+}: DateRangeSelectorProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [currentMonth, setCurrentMonth] = React.useState(new Date());
   const [selectedRange, setSelectedRange] = React.useState<'start' | 'end'>('start');
@@ -82,12 +96,12 @@ export function DateRangeSelector({ startDate, endDate, onDateChange, comparison
     { label: 'Last 7 days', value: '7d' },
     { label: 'Last 30 days', value: '30d' },
     { label: 'This month', value: 'month' },
-    { label: 'Last month', value: 'last_month' }
+    { label: 'Last month', value: 'last_month' },
   ];
 
   const days = eachDayOfInterval({
     start: startOfMonth(currentMonth),
-    end: endOfMonth(currentMonth)
+    end: endOfMonth(currentMonth),
   });
 
   const previousMonth = () => {
@@ -99,25 +113,25 @@ export function DateRangeSelector({ startDate, endDate, onDateChange, comparison
   };
 
   return (
-    <div className="bg-black border border-gray-800 rounded-lg p-4 mb-6 relative">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div className="relative mb-6 rounded-lg border border-gray-800 bg-black p-4">
+      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div className="flex items-center gap-3">
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
-            className="flex items-center gap-2 px-3 py-2 bg-gray-900 hover:bg-gray-800 rounded-lg border border-gray-800"
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex items-center gap-2 rounded-lg border border-gray-800 bg-gray-900 px-3 py-2 hover:bg-gray-800"
           >
-            <Icons.Calendar className="w-4 h-4 text-gray-400" />
+            <Icons.Calendar className="h-4 w-4 text-gray-400" />
             <span className="text-sm text-white">
               {format(startDate, 'MMM d, yyyy')} - {format(endDate, 'MMM d, yyyy')}
             </span>
-            <Icons.ChevronRight className="w-4 h-4 text-gray-400" />
+            <Icons.ChevronRight className="h-4 w-4 text-gray-400" />
           </button>
-          
+
           <div className="flex items-center gap-2">
-            {presetRanges.map(range => (
+            {presetRanges.map((range) => (
               <button
                 key={range.value}
-                className="px-3 py-1.5 text-sm text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
+                className="rounded-lg px-3 py-1.5 text-sm text-gray-400 transition-colors hover:bg-gray-800 hover:text-white"
                 onClick={() => handlePresetChange(range.value)}
               >
                 {range.label}
@@ -126,68 +140,59 @@ export function DateRangeSelector({ startDate, endDate, onDateChange, comparison
           </div>
         </div>
       </div>
-      
+
       {isOpen && (
-        <div 
+        <div
           ref={dropdownRef}
-          className="absolute top-full left-0 mt-2 p-4 bg-black border border-gray-800 rounded-lg shadow-xl z-50 w-[720px]"
+          className="absolute left-0 top-full z-50 mt-2 w-[720px] rounded-lg border border-gray-800 bg-black p-4 shadow-xl"
         >
           <div className="flex flex-col space-y-4">
-            <div className="flex justify-between items-center">
-              <button onClick={previousMonth} className="p-2 hover:bg-gray-800 rounded-lg">
-                <Icons.ArrowLeft className="w-4 h-4" />
+            <div className="flex items-center justify-between">
+              <button onClick={previousMonth} className="rounded-lg p-2 hover:bg-gray-800">
+                <Icons.ArrowLeft className="h-4 w-4" />
               </button>
-              <h3 className="text-lg font-medium">
-                {format(currentMonth, 'MMMM yyyy')}
-              </h3>
-              <button onClick={nextMonth} className="p-2 hover:bg-gray-800 rounded-lg">
-                <Icons.ArrowRight className="w-4 h-4" />
+              <h3 className="text-lg font-medium">{format(currentMonth, 'MMMM yyyy')}</h3>
+              <button onClick={nextMonth} className="rounded-lg p-2 hover:bg-gray-800">
+                <Icons.ArrowRight className="h-4 w-4" />
               </button>
             </div>
-            
+
             <div className="grid grid-cols-7 gap-1">
-              {['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map(day => (
-                <div key={day} className="text-center text-sm text-gray-400 py-2">
+              {['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map((day) => (
+                <div key={day} className="py-2 text-center text-sm text-gray-400">
                   {day}
                 </div>
               ))}
-              
-              {days.map(day => {
+
+              {days.map((day) => {
                 const isSelected = isSameDay(day, tempStart) || isSameDay(day, tempEnd);
                 const isInRange = day >= tempStart && day <= tempEnd;
-                
+
                 return (
                   <button
                     key={day.toISOString()}
                     onClick={() => handleDateClick(day)}
-                    className={`
-                      p-2 text-sm rounded-lg text-center transition-colors
-                      ${isToday(day) ? 'bg-blue-500/20 text-blue-400' : ''}
-                      ${isSelected ? 'bg-blue-500 text-white' : ''}
-                      ${isInRange && !isSelected ? 'bg-blue-500/20 text-white' : ''}
-                      ${!isSameMonth(day, currentMonth) ? 'text-gray-600' : 'text-gray-300'}
-                      hover:bg-gray-800
-                    `}
+                    className={`rounded-lg p-2 text-center text-sm transition-colors ${isToday(day) ? 'bg-blue-500/20 text-blue-400' : ''} ${isSelected ? 'bg-blue-500 text-white' : ''} ${isInRange && !isSelected ? 'bg-blue-500/20 text-white' : ''} ${!isSameMonth(day, currentMonth) ? 'text-gray-600' : 'text-gray-300'} hover:bg-gray-800`}
                   >
                     {format(day, 'd')}
                   </button>
                 );
               })}
             </div>
-            
-            <div className="flex justify-between pt-4 border-t border-gray-800">
-              <button 
-                onClick={() => setIsOpen(false)} 
+
+            <div className="flex justify-between border-t border-gray-800 pt-4">
+              <button
+                onClick={() => setIsOpen(false)}
                 className="px-4 py-2 text-sm text-gray-400 hover:text-white"
               >
                 Cancel
               </button>
-              <button 
+              <button
                 onClick={() => {
                   onDateChange(tempStart, tempEnd);
                   setIsOpen(false);
                 }}
-                className="px-4 py-2 text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                className="rounded-lg bg-blue-500 px-4 py-2 text-sm text-white hover:bg-blue-600"
               >
                 Apply
               </button>
@@ -197,14 +202,15 @@ export function DateRangeSelector({ startDate, endDate, onDateChange, comparison
       )}
 
       {comparisonRange && (
-        <div className="mt-3 pt-3 border-t border-gray-800">
+        <div className="mt-3 border-t border-gray-800 pt-3">
           <div className="flex items-center gap-2 text-sm">
             <span className="text-gray-400">Comparing to:</span>
             <span className="text-white">
-              {format(comparisonRange.start, 'MMM d, yyyy')} - {format(comparisonRange.end, 'MMM d, yyyy')}
+              {format(comparisonRange.start, 'MMM d, yyyy')} -{' '}
+              {format(comparisonRange.end, 'MMM d, yyyy')}
             </span>
             <button className="p-1 text-gray-400 hover:text-white">
-              <Icons.X className="w-4 h-4" />
+              <Icons.X className="h-4 w-4" />
             </button>
           </div>
         </div>

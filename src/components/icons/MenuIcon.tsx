@@ -2,10 +2,10 @@ import React from 'react';
 
 export function MenuIcon({ className = '' }: { className?: string }) {
   return (
-    <svg 
-      viewBox="0 0 24 24" 
-      width="28" 
-      height="28" 
+    <svg
+      viewBox="0 0 24 24"
+      width="28"
+      height="28"
       className={className}
       fill="none"
       stroke="white"

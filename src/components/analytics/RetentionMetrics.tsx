@@ -4,7 +4,7 @@ const mockData = {
   daily: 92,
   weekly: 78,
   monthly: 65,
-  quarterly: 45
+  quarterly: 45,
 };
 
 export function RetentionMetrics() {
@@ -13,12 +13,12 @@ export function RetentionMetrics() {
       {Object.entries(mockData).map(([period, rate]) => (
         <div key={period} className="space-y-2">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-400 capitalize">{period} Active Users</span>
+            <span className="capitalize text-gray-400">{period} Active Users</span>
             <span className="text-white">{rate}%</span>
           </div>
-          <div className="h-2 bg-gray-900 rounded-full overflow-hidden">
+          <div className="h-2 overflow-hidden rounded-full bg-gray-900">
             <div
-              className="h-full bg-blue-500 rounded-full transition-all duration-500"
+              className="h-full rounded-full bg-blue-500 transition-all duration-500"
               style={{ width: `${rate}%` }}
             />
           </div>

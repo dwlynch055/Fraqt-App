@@ -5,7 +5,7 @@ const mockData = [
   { type: 'Loyalty', count: 450, color: '#3B82F6' },
   { type: 'Coupons', count: 280, color: '#10B981' },
   { type: 'Event', count: 170, color: '#6366F1' },
-  { type: 'Boarding', count: 100, color: '#F59E0B' }
+  { type: 'Boarding', count: 100, color: '#F59E0B' },
 ];
 
 export function PassDistributionChart() {
@@ -15,7 +15,7 @@ export function PassDistributionChart() {
     <div className="space-y-4">
       <div className="flex items-center justify-between text-sm">
         <span className="text-gray-400">Total Passes</span>
-        <span className="text-white font-medium">{total.toLocaleString()}</span>
+        <span className="font-medium text-white">{total.toLocaleString()}</span>
       </div>
 
       {mockData.map((item) => (
@@ -24,12 +24,12 @@ export function PassDistributionChart() {
             <span className="text-gray-400">{item.type}</span>
             <span className="text-white">{((item.count / total) * 100).toFixed(1)}%</span>
           </div>
-          <div className="h-2 bg-gray-900 rounded-full overflow-hidden">
+          <div className="h-2 overflow-hidden rounded-full bg-gray-900">
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${(item.count / total) * 100}%`,
-                backgroundColor: item.color
+                backgroundColor: item.color,
               }}
             />
           </div>

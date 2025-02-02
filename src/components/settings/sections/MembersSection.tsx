@@ -23,75 +23,77 @@ export function MembersSection() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-semibold text-white">Team Members</h2>
-          <p className="text-sm text-gray-400 mt-1">
-            Manage your team members and their roles
-          </p>
+          <p className="mt-1 text-sm text-gray-400">Manage your team members and their roles</p>
         </div>
         <button
           onClick={() => setShowInviteModal(true)}
-          className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+          className="flex items-center rounded-lg bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600"
         >
-          <Icons.Plus className="w-4 h-4 mr-2" />
+          <Icons.Plus className="mr-2 h-4 w-4" />
           Invite member
         </button>
       </div>
 
       <div className="overflow-x-auto">
         {loading ? (
-          <div className="text-center py-8">
-            <Icons.Loader2 className="w-6 h-6 text-gray-400 animate-spin mx-auto" />
-            <p className="text-gray-400 mt-2">Loading team members...</p>
+          <div className="py-8 text-center">
+            <Icons.Loader2 className="mx-auto h-6 w-6 animate-spin text-gray-400" />
+            <p className="mt-2 text-gray-400">Loading team members...</p>
           </div>
         ) : (
-        <table className="w-full">
-          <thead>
-            <tr className="text-left border-b border-gray-800">
-              <th className="pb-3 text-sm font-medium text-gray-400">Name</th>
-              <th className="pb-3 text-sm font-medium text-gray-400">Email</th>
-              <th className="pb-3 text-sm font-medium text-gray-400">Role</th>
-              <th className="pb-3 text-sm font-medium text-gray-400">Status</th>
-              <th className="pb-3 text-sm font-medium text-gray-400">Joined</th>
-              <th className="pb-3 text-sm font-medium text-gray-400 text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="text-sm">
-            {members.map((member) => (
-              <tr key={member.id} className="border-b border-gray-800">
-                <td className="py-4 text-white">{member.user.email.split('@')[0]}</td>
-                <td className="py-4 text-gray-400">{member.user.email}</td>
-                <td className="py-4">
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    member.role === 'owner' ? 'bg-blue-900 text-blue-200' : 'bg-gray-900 text-gray-200'
-                  }`}>
-                    {member.role}
-                  </span>
-                </td>
-                <td className="py-4">
-                  <span className="flex items-center">
-                    <span className="w-2 h-2 rounded-full bg-green-400 mr-2"></span>
-                    <span className="text-gray-400">Active</span>
-                  </span>
-                </td>
-                <td className="py-4 text-gray-400">
-                  {new Date(member.created_at).toLocaleDateString()}
-                </td>
-                <td className="py-4 text-right">
-                  <button className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800">
-                    <Icons.MoreVertical className="w-4 h-4" />
-                  </button>
-                </td>
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-gray-800 text-left">
+                <th className="pb-3 text-sm font-medium text-gray-400">Name</th>
+                <th className="pb-3 text-sm font-medium text-gray-400">Email</th>
+                <th className="pb-3 text-sm font-medium text-gray-400">Role</th>
+                <th className="pb-3 text-sm font-medium text-gray-400">Status</th>
+                <th className="pb-3 text-sm font-medium text-gray-400">Joined</th>
+                <th className="pb-3 text-right text-sm font-medium text-gray-400">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="text-sm">
+              {members.map((member) => (
+                <tr key={member.id} className="border-b border-gray-800">
+                  <td className="py-4 text-white">{member.user.email.split('@')[0]}</td>
+                  <td className="py-4 text-gray-400">{member.user.email}</td>
+                  <td className="py-4">
+                    <span
+                      className={`rounded-full px-2 py-1 text-xs font-medium ${
+                        member.role === 'owner'
+                          ? 'bg-blue-900 text-blue-200'
+                          : 'bg-gray-900 text-gray-200'
+                      }`}
+                    >
+                      {member.role}
+                    </span>
+                  </td>
+                  <td className="py-4">
+                    <span className="flex items-center">
+                      <span className="mr-2 h-2 w-2 rounded-full bg-green-400"></span>
+                      <span className="text-gray-400">Active</span>
+                    </span>
+                  </td>
+                  <td className="py-4 text-gray-400">
+                    {new Date(member.created_at).toLocaleDateString()}
+                  </td>
+                  <td className="py-4 text-right">
+                    <button className="rounded-lg p-2 text-gray-400 hover:bg-gray-800 hover:text-white">
+                      <Icons.MoreVertical className="h-4 w-4" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
 
         {invitations.length > 0 && (
           <div className="mt-8">
-            <h3 className="text-lg font-medium text-white mb-4">Pending Invitations</h3>
+            <h3 className="mb-4 text-lg font-medium text-white">Pending Invitations</h3>
             <table className="w-full">
               <thead>
-                <tr className="text-left border-b border-gray-800">
+                <tr className="border-b border-gray-800 text-left">
                   <th className="pb-3 text-sm font-medium text-gray-400">Email</th>
                   <th className="pb-3 text-sm font-medium text-gray-400">Role</th>
                   <th className="pb-3 text-sm font-medium text-gray-400">Status</th>
@@ -104,7 +106,7 @@ export function MembersSection() {
                     <td className="py-4 text-white">{invitation.email}</td>
                     <td className="py-4 text-gray-400">{invitation.role}</td>
                     <td className="py-4">
-                      <span className="px-2 py-1 rounded-full text-xs font-medium bg-yellow-900 text-yellow-200">
+                      <span className="rounded-full bg-yellow-900 px-2 py-1 text-xs font-medium text-yellow-200">
                         {invitation.status}
                       </span>
                     </td>
@@ -119,10 +121,7 @@ export function MembersSection() {
         )}
       </div>
       {showInviteModal && (
-        <InviteMemberModal
-          onClose={() => setShowInviteModal(false)}
-          onInvite={handleInvite}
-        />
+        <InviteMemberModal onClose={() => setShowInviteModal(false)} onInvite={handleInvite} />
       )}
     </div>
   );

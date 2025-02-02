@@ -1,11 +1,11 @@
-import { members } from './members'
-import { passes } from './passes'
-import { analytics } from './analytics'
+import { members } from './members';
+import { passes } from './passes';
+import { analytics } from './analytics';
 
 export const api = {
   members,
   passes,
-  analytics
-} as const
+  analytics,
+} as const;
 
-export type Api = typeof api
+export type Api = typeof api;

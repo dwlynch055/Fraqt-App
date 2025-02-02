@@ -6,8 +6,8 @@ export const analytics = {
       totalPasses: 1234,
       activePasses: 987,
       scansLastWeek: 456,
-      customerEngagement: 78
+      customerEngagement: 78,
     },
-    error: null
-  })
+    error: null,
+  }),
 };

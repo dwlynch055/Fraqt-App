@@ -12,7 +12,7 @@ export function useMerchant(userId: string | undefined) {
 
     async function fetchMerchant() {
       try {
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network delay
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
         setMerchant(mockMerchant);
       } catch (err) {
         setError(err instanceof Error ? err : new Error('Failed to fetch merchant'));

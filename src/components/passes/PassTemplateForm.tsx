@@ -25,18 +25,15 @@ export function PassTemplateForm({ onClose, onSubmit }: PassTemplateFormProps) {
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+      <div className="w-full max-w-md rounded-lg bg-white shadow-xl">
+        <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
           <h2 className="text-lg font-semibold text-gray-900">Create Pass Template</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-500"
-          >
-            <X className="w-5 h-5" />
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-500">
+            <X className="h-5 w-5" />
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 p-6">
           <div>
             <label className="block text-sm font-medium text-gray-700">Name</label>
             <input
@@ -106,7 +103,7 @@ export function PassTemplateForm({ onClose, onSubmit }: PassTemplateFormProps) {
               type="checkbox"
               checked={formData.nfcEnabled}
               onChange={(e) => setFormData({ ...formData, nfcEnabled: e.target.checked })}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
             />
             <label className="ml-2 block text-sm text-gray-900">Enable NFC</label>
           </div>
@@ -114,13 +111,13 @@ export function PassTemplateForm({ onClose, onSubmit }: PassTemplateFormProps) {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+              className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+              className="rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700"
             >
               Create Template
             </button>

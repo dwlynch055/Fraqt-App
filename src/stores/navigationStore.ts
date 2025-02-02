@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { NavigationState } from './types'
+import type { NavigationState } from './types';
 
 export const useNavigationStore = create<NavigationState>()((set, get) => ({
   activeSection: 'dashboard',
@@ -12,5 +12,5 @@ export const useNavigationStore = create<NavigationState>()((set, get) => ({
     set({ isSidebarCollapsed: newState });
     return newState;
   },
-  setSidebarCollapsed: (collapsed: boolean) => set({ isSidebarCollapsed: collapsed })
-}))
+  setSidebarCollapsed: (collapsed: boolean) => set({ isSidebarCollapsed: collapsed }),
+}));

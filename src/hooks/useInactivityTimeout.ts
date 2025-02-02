@@ -18,19 +18,13 @@ export function useInactivityTimeout() {
     };
 
     // Events to track user activity
-    const events = [
-      'mousedown',
-      'mousemove',
-      'keypress',
-      'scroll',
-      'touchstart'
-    ];
+    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
 
     // Set initial timeout
     resetTimeout();
 
     // Add event listeners
-    events.forEach(event => {
+    events.forEach((event) => {
       document.addEventListener(event, resetTimeout);
     });
 
@@ -39,7 +33,7 @@ export function useInactivityTimeout() {
       if (timeoutRef.current) {
         window.clearTimeout(timeoutRef.current);
       }
-      events.forEach(event => {
+      events.forEach((event) => {
         document.removeEventListener(event, resetTimeout);
       });
     };

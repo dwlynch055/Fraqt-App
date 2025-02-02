@@ -2,7 +2,7 @@
 export async function uploadFile(file: File, bucket: string, path: string) {
   return {
     path: `${path}/${file.name}`,
-    url: `https://example.com/storage/${bucket}/${path}/${file.name}`
+    url: `https://example.com/storage/${bucket}/${path}/${file.name}`,
   };
 }
 

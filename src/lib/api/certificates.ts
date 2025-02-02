@@ -7,7 +7,7 @@ export async function uploadCertificate(merchantId: string, file: File) {
   return {
     id: '1',
     filename: file.name,
-    url: 'https://example.com/cert.p12'
+    url: 'https://example.com/cert.p12',
   };
 }
 
@@ -20,6 +20,6 @@ export async function validateCertificate(file: File) {
     valid: true,
     expiresAt: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
     teamId: 'TEAM123',
-    passTypeId: 'pass.com.example'
+    passTypeId: 'pass.com.example',
   };
 }

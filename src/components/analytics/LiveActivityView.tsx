@@ -19,7 +19,7 @@ const MOCK_LOCATIONS = [
   'Paris, Le Marais',
   'Berlin, Mitte',
   'Toronto, Downtown',
-  'Dubai, Downtown'
+  'Dubai, Downtown',
 ];
 
 const PASS_TYPES = ['loyalty', 'coupon', 'ticket'] as const;
@@ -30,7 +30,7 @@ function generateMockActivity(): Activity {
     type: Math.random() > 0.5 ? 'created' : 'used',
     passType: PASS_TYPES[Math.floor(Math.random() * PASS_TYPES.length)],
     location: MOCK_LOCATIONS[Math.floor(Math.random() * MOCK_LOCATIONS.length)],
-    timestamp: new Date()
+    timestamp: new Date(),
   };
 }
 
@@ -65,42 +65,44 @@ export function LiveActivityView() {
   };
 
   return (
-    <div className="rounded-lg overflow-hidden bg-black border border-gray-800">
+    <div className="overflow-hidden rounded-lg border border-gray-800 bg-black">
       <div className="p-6">
-        <div className="flex items-center justify-between mb-6">
+        <div className="mb-6 flex items-center justify-between">
           <div>
             <h2 className="text-base font-semibold text-white">Global Activity</h2>
-            <p className="text-[13px] text-gray-400 mt-1">Live event stream</p>
+            <p className="mt-1 text-[13px] text-gray-400">Live event stream</p>
           </div>
         </div>
 
-        <div className="font-mono text-sm space-y-0.5 bg-black rounded-lg p-3 max-h-[400px] overflow-y-auto">
+        <div className="max-h-[400px] space-y-0.5 overflow-y-auto rounded-lg bg-black p-3 font-mono text-sm">
           {activities.map((activity) => {
             const Icon = getPassIcon(activity.passType);
             return (
               <div
                 key={activity.id}
-                className="flex items-center space-x-3 py-1.5 px-2 hover:bg-black/30 rounded group transition-colors"
+                className="group flex items-center space-x-3 rounded px-2 py-1.5 transition-colors hover:bg-black/30"
               >
-                <span className={`${
-                  activity.type === 'created' ? 'text-green-400' : 'text-blue-400'
-                } font-bold`}>
-                  {activity.type === 'created' ? '+ ' : '→ '} 
+                <span
+                  className={`${
+                    activity.type === 'created' ? 'text-green-400' : 'text-blue-400'
+                  } font-bold`}
+                >
+                  {activity.type === 'created' ? '+ ' : '→ '}
                 </span>
-                <Icon className="w-4 h-4 text-gray-400 group-hover:text-gray-300 transition-colors" />
-                <span className="text-gray-300 group-hover:text-white transition-colors">
+                <Icon className="h-4 w-4 text-gray-400 transition-colors group-hover:text-gray-300" />
+                <span className="text-gray-300 transition-colors group-hover:text-white">
                   {activity.passType}
                 </span>
-                <span className="text-gray-500 group-hover:text-gray-400 transition-colors">
+                <span className="text-gray-500 transition-colors group-hover:text-gray-400">
                   {activity.location}
                 </span>
-                <span className="ml-auto text-gray-600 group-hover:text-gray-500 transition-colors">
+                <span className="ml-auto text-gray-600 transition-colors group-hover:text-gray-500">
                   {formatTimestamp(activity.timestamp)}
                 </span>
               </div>
             );
           })}
-          <div className="h-6 flex items-center px-2 text-gray-600">
+          <div className="flex h-6 items-center px-2 text-gray-600">
             <span className="animate-pulse">▋</span>
           </div>
         </div>
