@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react';
-import { supabase } from '../lib/supabase';
 import type { User } from '@supabase/supabase-js';
+import { useCallback, useState } from 'react';
+import { supabase } from '../lib/supabase';
 import { useDataStore } from '../stores/dataStore';
 
 export interface ApiKey {
@@ -53,7 +53,7 @@ export function useApiKeys(user: User | null) {
     } finally {
       setLoading(false);
     }
-  }, [user]);
+  }, [user, apiKeys, setApiKeys]);
 
   const createApiKey = useCallback(async (merchantId: string, name: string) => {
     if (!user) throw new Error('No user logged in');

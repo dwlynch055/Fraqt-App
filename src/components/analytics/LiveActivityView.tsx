@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { CreditCard, Gift, Ticket, Plus, Check } from 'lucide-react';
-import { useActivityStore } from '../../stores/activityStore';
 import { formatDistanceToNow } from 'date-fns';
+import { CreditCard, Gift, Ticket } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { useActivityStore } from '../../stores/activityStore';
 
 interface Activity {
   id: string;

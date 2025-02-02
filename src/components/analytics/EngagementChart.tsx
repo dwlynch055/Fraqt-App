@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { LineChart } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const gradientStops = [
   { offset: '0%', color: 'rgb(59, 130, 246)', opacity: 0.2 },
@@ -63,7 +62,6 @@ export function EngagementChart() {
           <h2 className="text-base font-semibold text-white">Weekly Engagement</h2>
           <p className="text-[13px] text-gray-400 mt-1">Pass usage analytics</p>
         </div>
-        <LineChart className="w-5 h-5 text-gray-400" />
       </div>
 
       <div className="relative w-full h-[275px] overflow-hidden">

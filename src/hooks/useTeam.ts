@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { useDataStore } from '../stores/dataStore';
 
@@ -64,7 +64,7 @@ export function useTeam(merchantId: string | undefined) {
     }
 
     fetchTeam();
-  }, [merchantId]);
+  }, [merchantId, setTeamData]);
 
   return { members, invitations, loading, error };
 }

@@ -1,19 +1,17 @@
-import React from 'react';
-import { DashboardLayout } from './components/layout/DashboardLayout';
-import { AnalyticsCard } from './components/dashboard/AnalyticsCard';
-import { Icons } from './components/icons';
-import { PassList } from './components/passes/PassList';
+import React, { useCallback, useEffect, useState } from 'react';
 import { LiveActivityView } from './components/analytics/LiveActivityView';
+import { AuthModal } from './components/auth/AuthModal';
+import { AnalyticsCard } from './components/dashboard/AnalyticsCard';
+import { LatestChanges } from './components/dashboard/LatestChanges';
+import { WelcomeBanner } from './components/dashboard/WelcomeBanner';
+import { Icons } from './components/icons';
+import { DashboardLayout } from './components/layout/DashboardLayout';
 import { PassCreationWizard } from './components/passes/PassCreationWizard';
-import type { Analytics, PassTemplate } from './types/database';
-import { useCallback, useState, useEffect } from 'react';
+import { useAnalytics } from './hooks/useAnalytics';
 import { useAuth } from './hooks/useAuth';
 import { useDatabase } from './hooks/useDatabase';
-import { AuthModal } from './components/auth/AuthModal';
-import { WelcomeBanner } from './components/dashboard/WelcomeBanner';
-import { LatestChanges } from './components/dashboard/LatestChanges';
-import { useAnalytics } from './hooks/useAnalytics';
 import { useInactivityTimeout } from './hooks/useInactivityTimeout';
+import type { PassTemplate } from './types/database';
 
 function AuthWrapper({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -72,7 +70,7 @@ function App() {
       const template = await createPassTemplate({
         ...templateData,
         merchant_id: user.id,
-        nfc_enabled: templateData.nfcEnabled || false
+        nfc_enabled: templateData.nfc_enabled || false
       });
 
       console.log('Created template:', template);

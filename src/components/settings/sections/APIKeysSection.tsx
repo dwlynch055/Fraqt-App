@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Icons } from '../../icons';
-import { useAuth } from '../../../hooks/useAuth';
-import { useApiKeys, type ApiKey } from '../../../hooks/useApiKeys';
 import { formatDistanceToNow } from 'date-fns';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useApiKeys, type ApiKey } from '../../../hooks/useApiKeys';
+import { useAuth } from '../../../hooks/useAuth';
+import { Icons } from '../../icons';
 
 export function APIKeysSection() {
   const { user } = useAuth();
@@ -13,13 +13,7 @@ export function APIKeysSection() {
   const [isCreating, setIsCreating] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (user?.id) {
-      loadApiKeys();
-    }
-  }, [user]);
-
-  const loadApiKeys = async () => {
+  const loadApiKeys = useCallback(async () => {
     try {
       if (!user?.id) return;
       const keys = await getApiKeys(user.id);
@@ -27,7 +21,13 @@ export function APIKeysSection() {
     } catch (err) {
       console.error('Error loading API keys:', err);
     }
-  };
+  }, [user, getApiKeys, setApiKeys]);
+
+  useEffect(() => {
+    if (user?.id) {
+      loadApiKeys();
+    }
+  }, [user, loadApiKeys]);
 
   const handleCreateKey = async () => {
     if (!user?.id || !newKeyName.trim()) return;
@@ -116,7 +116,7 @@ export function APIKeysSection() {
                 </tr>
               ) : (
                 apiKeys.map((key) => (
-                <tr key={key.key} className="border-b border-gray-800">
+                <tr key={key.id} className="border-b border-gray-800">
                   <td className="py-4 text-white">{key.name}</td>
                   <td className="py-4 font-mono text-gray-400">{key.key_prefix}...</td>
                   <td className="py-4 text-gray-400">{formatDistanceToNow(new Date(key.created_at), { addSuffix: true })}</td>
