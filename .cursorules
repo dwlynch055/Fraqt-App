@@ -1,0 +1,38 @@
+Please follow these project-specific guidelines:
+
+1. Package Management:
+- Use pnpm exclusively for package management
+- Install dependencies with: pnpm install
+- Add new dependencies with: pnpm add [package-name]
+- Add dev dependencies with: pnpm add -D [package-name]
+
+2. Code Style:
+- Write all new files in TypeScript
+- Follow the ESLint configuration
+- Follow existing code structure and naming conventions
+
+3. Project Structure:
+- Place React components in src/components/
+- Custom React hooks go in src/hooks/
+- State management code belongs in src/stores/
+- TypeScript types should be in src/types/
+- Utility functions go in src/utils/
+
+4. Git Commits:
+- Use Conventional Commits format (https://www.conventionalcommits.org/en/v1.0.0/)
+- Write commit messages in present tense
+- Use lowercase letters throughout commit messages
+
+5. Testing Requirements:
+- Write tests for new features
+- Run tests before submitting PR using: pnpm test
+- Ensure all tests pass
+
+6. Pull Request Process:
+- Create a feature branch
+- Make your changes
+- Run tests and linting
+- Submit PR with clear description
+- Address review comments
+
+Please ensure all code changes adhere to these guidelines. 
